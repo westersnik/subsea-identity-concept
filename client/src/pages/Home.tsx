@@ -1,4 +1,6 @@
 // Field Signal design philosophy: cinematic proof, operational clarity, and human contact in one marine narrative.
+const asset = (file: string) => `${import.meta.env.BASE_URL}assets/${file}`;
+
 import {
   ArrowDown,
   ArrowUpRight,
@@ -8,8 +10,12 @@ import {
   Play,
   Radio,
 } from "lucide-react";
-
-const asset = (path: string) => `${import.meta.env.BASE_URL}assets/${path}`;
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 const contacts = [
   {
@@ -29,7 +35,7 @@ const contacts = [
     phone: "+47 917 41 991",
     phoneHref: "+4791741991",
     email: "haavard.thomlevold@invig.no",
-    image: asset("people/haavard-thomlevold.jpg"),
+    image: asset("people/haavard-thomlevold.png"),
     source: "https://invig.no/team",
   },
   {
@@ -92,6 +98,51 @@ const partners = [
   { name: "GS1 Norway", src: asset("partners/gs1-norway.png"), href: "https://gs1.no/" },
 ];
 
+const organizationNotes = [
+  {
+    value: "informatiq",
+    index: "01",
+    label: "Who is InformatiQ?",
+    summary: "Integrated digital solutions for oil and gas logistics and operations.",
+    body: (
+      <>
+        <p><strong>InformatiQ builds integrated solutions for oil and gas operations.</strong> LogistiQ is a full-scale logistics solution covering the end-to-end process: from planning and procurement through transport, supply base operations, offshore delivery and returns.</p>
+        <p>It connects planning systems, ERP/SAP, suppliers, transport providers, supply bases and offshore operations in one platform. TraQ is LogistiQ’s real-time control tower, combining ERP, Peppol, GS1, GPS, AIS, QR/RFID and IoT data to provide live status, location, logistics events and deviation handling from supplier to final destination.</p>
+      </>
+    ),
+    href: "https://www.informatiq.no/",
+    linkLabel: "Visit InformatiQ",
+  },
+  {
+    value: "gs1",
+    index: "02",
+    label: "What does GS1 Norway contribute?",
+    summary: "A common language for unique identification and trusted data sharing.",
+    body: (
+      <>
+        <p><strong>GS1 Norway provides the standards that make a shared identity work across organizations.</strong> A globally unique GS1 identifier gives physical equipment a durable digital reference that can be understood by people, systems and partners throughout the lifecycle.</p>
+        <p>This creates a consistent foundation for linking the asset to the correct data, while each organization can apply its own access rights, processes and operational systems.</p>
+      </>
+    ),
+    href: "https://gs1.no/",
+    linkLabel: "Visit GS1 Norway",
+  },
+  {
+    value: "invig",
+    index: "03",
+    label: "What does Invig do?",
+    summary: "Making physical assets digitally identifiable through RFID, IoT and GS1 Digital Link.",
+    body: (
+      <>
+        <p><strong>Invig helps organisations structure the physical world through traceability technology.</strong> Its solutions combine RFID, IoT and GS1 Digital Link to connect physical assets to relevant digital information, from identification and location to operational status.</p>
+        <p>For subsea equipment, this creates a practical bridge between the component in the field, its unique identity and the systems that need to use its data.</p>
+      </>
+    ),
+    href: "https://newpage.invig.no/",
+    linkLabel: "Visit Invig",
+  },
+];
+
 export default function Home() {
   return (
     <div className="site-shell">
@@ -118,6 +169,10 @@ export default function Home() {
         <section className="top-film-section" id="film" aria-labelledby="film-heading">
           <div className="top-film-rail" aria-hidden="true"><span>01</span><i /><small>FILM</small></div>
           <div className="top-film-intro">
+            <div className="campaign-signature" aria-label="GS1 Subsea ID operational identity">
+              <span className="signal-ring campaign-ring" aria-hidden="true"><span /></span>
+              <span><strong>GS1 / SUBSEA ID</strong><small>OPERATIONAL IDENTITY FIELD</small></span>
+            </div>
             <p className="signal-label"><Radio size={13} /> GS1-BASED SUBSEA EQUIPMENT IDENTITY</p>
             <h1 id="film-heading">Watch the concept <em>in motion.</em></h1>
             <p>From vessel launch to ROV inspection, see how one GS1-based, globally unique identity connects the physical asset to the right operational data — from asset history to planned work and digital twin context.</p>
@@ -150,8 +205,8 @@ export default function Home() {
                   <img src={person.image} alt={`Portrait of ${person.name}`} loading="lazy" />
                   <span>{person.company}</span>
                 </div>
-                <div className="contact-details">
-                  <div className="contact-log"><span>ONS FIELD LOG / 0{index + 1}</span><i /></div>
+                  <div className="contact-details">
+                    <div className="contact-log"><span>ONS FIELD LOG / 0{index + 1}</span><i /></div>
                   <div className="contact-title-row">
                     <div>
                       <h3>{person.name}</h3>
@@ -160,8 +215,9 @@ export default function Home() {
                     <a href={person.source} target="_blank" rel="noreferrer" aria-label={`Open ${person.name}'s organization page`}>
                       <ArrowUpRight size={18} />
                     </a>
-                  </div>
-                  {person.phone ? <a href={`tel:${person.phoneHref}`} className="contact-link"><Phone size={15} /> {person.phone}</a> : null}
+                    </div>
+                    <div className="contact-status"><span className="signal-dot" /> AVAILABLE TO MEET AT ONS</div>
+                    {person.phone ? <a href={`tel:${person.phoneHref}`} className="contact-link"><Phone size={15} /> {person.phone}</a> : null}
                   {person.email ? (
                     <a href={`mailto:${person.email}`} className="contact-link"><Mail size={15} /> {person.email}</a>
                   ) : (
@@ -259,6 +315,29 @@ export default function Home() {
             />
             <div className="access-image-note">IDENTITY / CONTEXT / ACCESS</div>
           </div>
+        </section>
+
+        <section className="organization-section" aria-labelledby="organization-heading">
+          <div className="section-stage-mark organization-stage-mark" aria-hidden="true"><span>05</span><i /> <small>CONTEXT</small></div>
+          <div className="organization-intro">
+            <p className="signal-label"><span className="signal-dot" /> THE COLLABORATION</p>
+            <h2 id="organization-heading">The people, standards and systems behind the connection.</h2>
+            <p>Explore the roles that help connect unique equipment identity with practical logistics, traceability and operational context.</p>
+          </div>
+          <Accordion type="single" collapsible className="organization-accordion">
+            {organizationNotes.map((note) => (
+              <AccordionItem value={note.value} key={note.value} className="organization-item">
+                <AccordionTrigger className="organization-trigger">
+                  <span className="organization-index">{note.index}</span>
+                  <span className="organization-label"><strong>{note.label}</strong><small>{note.summary}</small></span>
+                </AccordionTrigger>
+                <AccordionContent className="organization-content">
+                  <div className="organization-body">{note.body}</div>
+                  <a href={note.href} target="_blank" rel="noreferrer" className="organization-link">{note.linkLabel} <ArrowUpRight size={15} /></a>
+                </AccordionContent>
+              </AccordionItem>
+            ))}
+          </Accordion>
         </section>
 
         <section className="partner-section" aria-label="Collaborating organizations">
