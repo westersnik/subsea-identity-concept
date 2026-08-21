@@ -51,7 +51,7 @@ home = home.replace(/src=asset\(("[^"]+")\)/g, "src={asset($1)}");
 writeFileSync(path.join(exportProject, "client/src/pages/Home.tsx"), home);
 
 let css = readFileSync(path.join(sourceProject, "index.css"), "utf8");
-css = css.replaceAll("/manus-storage/concept-film-mobile-poster_b28f99e2.jpg", "/subsea-identity-concept/assets/imagery/concept-film-mobile-poster.jpg");
+css = css.replaceAll("/manus-storage/concept-film-mobile-poster_b28f99e2.jpg", "./assets/imagery/concept-film-mobile-poster.jpg");
 writeFileSync(path.join(exportProject, "client/src/index.css"), css);
 
 for (const [sourceName, destination] of binaryAssets) {

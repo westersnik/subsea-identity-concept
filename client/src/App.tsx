@@ -8,8 +8,12 @@ import { ThemeProvider } from "./contexts/ThemeContext";
 import Home from "./pages/Home";
 
 function Router() {
+  const routerBase = window.location.pathname.startsWith("/subsea-identity-concept")
+    ? "/subsea-identity-concept"
+    : "";
+
   return (
-    <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
+    <WouterRouter base={routerBase}>
       <Switch>
         <Route path="/" component={Home} />
         <Route path="/404" component={NotFound} />
